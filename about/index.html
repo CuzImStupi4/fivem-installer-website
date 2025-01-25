@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="cursor.css"/>
+    <script src="cursor.js"></script>
+    <style>
+        .grid-background {
+            background-image: 
+                linear-gradient(0deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255, 20, 147, 0.2) 10%, transparent 50%);
+            background-size: 60px 60px, 60px 60px, 800px 800px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+            mask-image: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+            mask-composite: exclude;
+            -webkit-mask-composite: destination-out;
+        }
+
+        body {
+            background-color: rgb(5, 5, 5);
+            overflow: hidden;
+        }
+        
+        .navbar {
+            padding: 14px 50px;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+
+<body class="text-gray-300">
+    <div class="grid-background"></div>
+
+    <nav class="py-8 flex justify-center gap-10">
+        <a href="/" class="text-gray-300 hover:text-gray-100 text-lg font-semibold">Home</a>
+        <a href="/about" class="text-gray-300 hover:text-gray-100 text-lg font-semibold">About Us</a>
+    </nav>
+    
+    
+
+    <div class="container mx-auto p-8">
+        <div class="p-6 rounded-xl bg-[#0E0E0E]">
+            <h1 class="subpixel-antialiased text-4xl font-bold mb-1 text-center text-gray-100">about us</h1>
+            <h1 class="subpixel-antialiased text-lg font-bold mb-5 text-center text-stone-500">we are a small team of developers.</h1>
+            <div class="flex justify-center gap-8">
+                <selection class="bg-[#161616] p-6 rounded-lg w-64 text-center transform transition-transform duration-500 hover:scale-105">
+                    <img src="https://cdn.discordapp.com/avatars/517764829927440396/7c426a372ed836f25544ea96459bd780.webp?size=4096"
+                        alt="CuzImStupi4" class="w-36 h-36 rounded-full mx-auto mb-4">
+                    <h2 class="text-xl font-bold text-gray-100">cuzimstupi4</h2>
+                    <p class="text-gray-400 mb-1">Developer</p>
+                    <p class="text-sm text-gray-400 mb-2">main developer of the 5M Installer</p>
+                    <a href="https://github.com/CuzImStupi4" target="_blank"
+                        class="text-gray-300 hover:text-gray-200 flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.05-.02-2.06-3.34.73-4.04-1.61-4.04-1.61-.54-1.37-1.33-1.74-1.33-1.74-1.09-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.92 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.51.12-3.15 0 0 1-.32 3.3 1.22a11.55 11.55 0 013.01-.4c1.02 0 2.04.14 3.01.4 2.3-1.54 3.3-1.22 3.3-1.22.66 1.64.24 2.85.12 3.15.77.84 1.23 1.91 1.23 3.22 0 4.6-2.8 5.62-5.47 5.91.43.37.81 1.1.81 2.22 0 1.6-.01 2.9-.01 3.29 0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
+                        </svg>
+                        GitHub
+                    </a>
+                </selection>
+
+                <selection class="bg-[#161616] p-6 rounded-lg w-64 text-center transform transition-transform duration-500 hover:scale-105">
+                    <img src="https://cdn.discordapp.com/avatars/1059077615580880967/a09beb7666b4270667ef76ef7536464f.webp?size=1024&format=webp&width=800&height=800"
+                        alt="CuzImStupi4" class="w-36 h-36 rounded-full mx-auto mb-4">
+                    <h2 class="text-xl font-bold text-gray-100">lucentix</h2>
+                    <p class="text-gray-400 mb-1">Developer</p>
+                    <p class="text-sm text-gray-400 mb-2">2nd main developer of the 5M Installer</p>
+                    <a href="https://github.com/Lucentix" target="_blank"
+                        class="text-gray-300 hover:text-gray-200 flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.05-.02-2.06-3.34.73-4.04-1.61-4.04-1.61-.54-1.37-1.33-1.74-1.33-1.74-1.09-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.92 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.51.12-3.15 0 0 1-.32 3.3 1.22a11.55 11.55 0 013.01-.4c1.02 0 2.04.14 3.01.4 2.3-1.54 3.3-1.22 3.3-1.22.66 1.64.24 2.85.12 3.15.77.84 1.23 1.91 1.23 3.22 0 4.6-2.8 5.62-5.47 5.91.43.37.81 1.1.81 2.22 0 1.6-.01 2.9-.01 3.29 0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
+                        </svg>
+                        GitHub
+                    </a>
+                </selection>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

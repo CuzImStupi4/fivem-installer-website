@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('mouseover', (e) => {
-    if (e.target.matches('div, a, option')) {
+    if (e.target.matches('div, a, option, button2')) {
       cursor.classList.add('contracted');
     } else {
       cursor.classList.remove('contracted');
@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('mouseout', (e) => {
-    if (e.target.matches('div, a, option')) {
+    if (e.target.matches('div, a, option, button2')) {
       cursor.classList.remove('contracted');
     }
   });
 
   document.addEventListener('mouseover', (e) => {
-    if (e.target.matches('h1, input, label, select')) {
+    if (e.target.matches('h1, input, label, select, p, h2')) {
       cursor.classList.add('text-pointer');
     } else {
       cursor.classList.remove('text-pointer');
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('mouseout', (e) => {
-    if (e.target.matches('h1, input, label, select')) {
+    if (e.target.matches('h1, input, label, select, p, h2')) {
       cursor.classList.remove('text-pointer');
     }
   });

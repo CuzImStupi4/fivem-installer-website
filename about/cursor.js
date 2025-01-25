@@ -33,22 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
   //TODO: fix the selection mouse cursor!
 
 
-  // document.addEventListener('mouseover', (e) => {
-  //   if (e.target.matches('selection')) {
-  //     cursor.classList.add('text-contracted');
-  //   } else {
-  //     cursor.classList.remove('text-contracted');
-  //   }
-  // });
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.matches('div, a, button')) {
+      cursor.classList.add('contracted');
+    } else {
+      cursor.classList.remove('contracted');
+    }
+  });
 
-  // document.addEventListener('mouseout', (e) => {
-  //   if (e.target.matches('selection')) {
-  //     cursor.classList.remove('text-contracted');
-  //   }
-  // });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.matches('div, a, button')) {
+      cursor.classList.remove('contracted');
+    }
+  });
 
   document.addEventListener('mouseover', (e) => {
-    if (e.target.matches('p, a, h2')) {
+    if (e.target.matches('h1, a, h2, p')) {
       cursor.classList.add('text-pointer');
     } else {
       cursor.classList.remove('text-pointer');
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('mouseout', (e) => {
-    if (e.target.matches('p, a, h2')) {
+    if (e.target.matches('h1, a, h2, p')) {
       cursor.classList.remove('text-pointer');
     }
   });

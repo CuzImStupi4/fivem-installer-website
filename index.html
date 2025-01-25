@@ -101,8 +101,7 @@
 
     <nav class="py-2 flex justify-center gap-10 -mt-40">
         <a href="" class="text-gray-300 hover:text-gray-100 text-lg font-semibold">Home</a>
-        <a href="about/index.html"
-            class="text-gray-300 hover:text-gray-100 text-lg font-semibold">About Us</a>
+        <a href="about/index.html" class="text-gray-300 hover:text-gray-100 text-lg font-semibold">About Us</a>
     </nav>
 
 
@@ -137,110 +136,113 @@
                         <option value="no">No</option>
                     </select>
                 </div>
+
                 <div>
                     <label for="password" class="block text-lg font-semibold text-gray-300">Password</label>
                     <div class="relative">
                         <input type="password" id="password"
                             class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
                             placeholder="Enter your password" style="filter: blur(4px);" oninput="validateFields()">
-                        <span id="passwordIcon" class="eye-icon" onclick="togglePassword()">👁️</span>
+                        <span id="passwordIcon" class="absolute top-1/2 right-3 transform -translate-y-1/3 cursor-pointer"
+                            onclick="togglePassword()">👁️</span>
                     </div>
+                </div>                            
+
+
+                <div class="mt-6 text-center">
+                    <button id="confirmButton"
+                        class="px-6 py-2 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 focus:outline-none"
+                        onclick="openModal()" disabled>Confirm</button>
                 </div>
             </div>
+        </div>
 
-            <div class="mt-6 text-center">
-                <button id="confirmButton"
-                    class="px-6 py-2 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 focus:outline-none"
-                    onclick="openModal()" disabled>Confirm</button>
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content bg-[#1E1E1E] p-6 rounded-lg text-center">
+                <h2 class="text-gray-300 font-bold text-2xl mb-4">Please Confirm</h2>
+                <p class="text-gray-300 mb-4">By confirming, you agree to the server setup details.</p>
+                <input type="checkbox" id="confirmCheckbox" class="text-pink-500" onclick="toggleModalButton()"> I agree
+                to
+                the terms
+                <div class="mt-4">
+                    <button id="modalButton"
+                        class="w-full p-2 text-white font-semibold rounded-lg bg-pink-600 hover:bg-pink-700" disabled
+                        onclick="finishSetup()">Confirm Setup</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="confirmationModal" class="modal">
-        <div class="modal-content bg-[#1E1E1E] p-6 rounded-lg text-center">
-            <h2 class="text-gray-300 font-bold text-2xl mb-4">Please Confirm</h2>
-            <p class="text-gray-300 mb-4">By confirming, you agree to the server setup details.</p>
-            <input type="checkbox" id="confirmCheckbox" class="text-pink-500" onclick="toggleModalButton()"> I agree to
-            the terms
-            <div class="mt-4">
-                <button id="modalButton"
-                    class="w-full p-2 text-white font-semibold rounded-lg bg-pink-600 hover:bg-pink-700" disabled
-                    onclick="finishSetup()">Confirm Setup</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            const passwordIcon = document.getElementById('passwordIcon');
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                passwordField.style.filter = 'none';
-                passwordIcon.classList.add('clicked');
-            } else {
-                passwordField.type = 'password';
-                passwordField.style.filter = 'blur(4px)';
-                passwordIcon.classList.remove('clicked');
+        <script>
+            function togglePassword() {
+                const passwordField = document.getElementById('password');
+                const passwordIcon = document.getElementById('passwordIcon');
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    passwordField.style.filter = 'none';
+                    passwordIcon.classList.add('clicked');
+                } else {
+                    passwordField.type = 'password';
+                    passwordField.style.filter = 'blur(4px)';
+                    passwordIcon.classList.remove('clicked');
+                }
             }
-        }
 
-        function validateFields() {
-            const serverIP = document.getElementById('serverIP').value;
-            const port = document.getElementById('port').value;
-            const user = document.getElementById('user').value;
-            const password = document.getElementById('password').value;
-            const confirmButton = document.getElementById('confirmButton');
+            function validateFields() {
+                const serverIP = document.getElementById('serverIP').value;
+                const port = document.getElementById('port').value;
+                const user = document.getElementById('user').value;
+                const password = document.getElementById('password').value;
+                const confirmButton = document.getElementById('confirmButton');
 
-            if (serverIP && port && user && password) {
-                confirmButton.disabled = false;
-            } else {
-                confirmButton.disabled = true;
+                if (serverIP && port && user && password) {
+                    confirmButton.disabled = false;
+                } else {
+                    confirmButton.disabled = true;
+                }
             }
-        }
 
-        function openModal() {
-            const modal = document.getElementById('confirmationModal');
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                modal.classList.remove('opacity-0');
-            }, 10);
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('confirmationModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('pointer-events-none');
-            }, 300);
-        }
-
-        function toggleModalButton() {
-            const modalButton = document.getElementById('modalButton');
-            const confirmCheckbox = document.getElementById('confirmCheckbox');
-
-            modalButton.disabled = !confirmCheckbox.checked;
-        }
-
-        function finishSetup() {
-            const serverIP = document.getElementById('serverIP').value;
-            const port = document.getElementById('port').value;
-            const user = document.getElementById('user').value;
-            const mysqlOption = document.getElementById('mysqlOption').value;
-            const password = document.getElementById('password').value;
-
-            const modalContent = `Server will now install!<br>Server IP: ${serverIP}<br>Port: ${port}<br>User: ${user}<br>Use MySQL: ${mysqlOption}<br>Password: ${'*'.repeat(password.length)}`;
-            document.querySelector('.modal-content').innerHTML = modalContent;
-        }
-
-        document.addEventListener('click', (e) => {
-            const modal = document.getElementById('confirmationModal');
-            if (e.target === modal) {
-                closeModal();
+            function openModal() {
+                const modal = document.getElementById('confirmationModal');
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('opacity-100');
+                    modal.classList.remove('opacity-0');
+                }, 10);
             }
-        });
-    </script>
+
+            function closeModal() {
+                const modal = document.getElementById('confirmationModal');
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('pointer-events-none');
+                }, 300);
+            }
+
+            function toggleModalButton() {
+                const modalButton = document.getElementById('modalButton');
+                const confirmCheckbox = document.getElementById('confirmCheckbox');
+
+                modalButton.disabled = !confirmCheckbox.checked;
+            }
+
+            function finishSetup() {
+                const serverIP = document.getElementById('serverIP').value;
+                const port = document.getElementById('port').value;
+                const user = document.getElementById('user').value;
+                const mysqlOption = document.getElementById('mysqlOption').value;
+                const password = document.getElementById('password').value;
+
+                const modalContent = `Server will now install!<br>Server IP: ${serverIP}<br>Port: ${port}<br>User: ${user}<br>Use MySQL: ${mysqlOption}<br>Password: ${'*'.repeat(password.length)}`;
+                document.querySelector('.modal-content').innerHTML = modalContent;
+            }
+
+            document.addEventListener('click', (e) => {
+                const modal = document.getElementById('confirmationModal');
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        </script>
 </body>
 
 </html>

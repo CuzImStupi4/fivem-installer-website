@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="darkreader-lock">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Setup</title>
     <link rel="stylesheet" href="cursor.css" />
@@ -143,7 +144,8 @@
                         <input type="password" id="password"
                             class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
                             placeholder="Enter your password" style="filter: blur(4px);" oninput="validateFields()">
-                        <span id="passwordIcon" class="absolute top-1/2 right-3 transform -translate-y-1/3 cursor-pointer"
+                        <span id="passwordIcon"
+                            class="absolute top-1/2 right-3 transform -translate-y-1/3 cursor-pointer"
                             onclick="togglePassword()">👁️</span>
                     </div>
                 </div>
@@ -232,7 +234,7 @@
                 const mysqlOption = document.getElementById('mysqlOption').value;
                 const password = document.getElementById('password').value;
 
-                const modalContent = `Server will now install!<br>Server IP: ${serverIP}<br>Port: ${port}<br>User: ${user}<br>Use MySQL: ${mysqlOption}<br>Password: ${'*'.repeat(password.length)}`;
+                const modalContent = `<img src="" alt="Image of console!"></img>Server will now install!<br>Server IP: ${serverIP}<br>Port: ${port}<br>User: ${user}<br>Use MySQL: ${mysqlOption}<br>Password: ${'*'.repeat(password.length)}`;
                 document.querySelector('.modal-content').innerHTML = modalContent;
             }
 

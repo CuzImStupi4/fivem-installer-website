@@ -1,278 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
     <title>Server Setup</title>
-    <link rel="icon" type="image/x-icon" href="favico.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="favico.ico" />
     <link rel="stylesheet" href="cursor.css" />
     <script src="cursor.js"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        body {
-            overflow: hidden;
-            background-color: rgb(5, 5, 5);
-            /* display: flex; */
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+      body {
+        overflow: hidden;
+        background-color: rgb(5, 5, 5);
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
 
-        .grid-background {
-            background-image:
-                linear-gradient(0deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255, 20, 147, 0.2) 10%, transparent 50%);
-            background-size: 60px 60px, 60px 60px, 800px 800px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
-            mask-image: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
-            mask-composite: exclude;
-            -webkit-mask-composite: destination-out;
-        }
+      .grid-background {
+        background-image: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.4) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+          radial-gradient(circle, rgba(255, 20, 147, 0.2) 10%, transparent 50%);
+        background-size: 60px 60px, 60px 60px, 800px 800px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        -webkit-mask-image: radial-gradient(
+          circle,
+          rgba(0, 0, 0, 1) 75%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: radial-gradient(
+          circle,
+          rgb(0, 0, 0) 0%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mask-composite: exclude;
+        -webkit-mask-composite: destination-out;
+      }
 
-        .container {
-            max-width: 400px;
-            width: 100%;
-        }
+      .container {
+        max-width: 400px;
+        width: 100%;
+      }
 
-        .eye-icon {
-            position: absolute;
-            right: 2px;
-            top: 50%;
-            transform: translateY(-50%);
-            /* cursor: pointer; */
-            transition: color 0.3s;
-        }
+      .eye-icon {
+        position: absolute;
+        right: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+        /* cursor: pointer; */
+        transition: color 0.3s;
+      }
 
-        .eye-icon.clicked {
-            text-decoration: line-through;
-        }
+      .eye-icon.clicked {
+        text-decoration: line-through;
+      }
 
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9998;
-            transition: opacity 0.3s ease;
-        }
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9998;
+        transition: opacity 0.3s ease;
+      }
 
-        .modal-content {
-            background-color: #1E1E1E;
-            padding: 20px;
-            border-radius: 8px;
-            width: 300px;
-            text-align: center;
-            position: relative;
-        }
+      .modal-content {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+        position: relative;
+      }
 
-        .modal input[type="checkbox"] {
-            margin: 10px 0;
-        }
+      .modal input[type="checkbox"] {
+        margin: 10px 0;
+      }
 
-        .modal button {
-            padding: 10px 20px;
-            background-color: #E6007E;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            /* cursor: pointer; */
-        }
+      .modal button {
+        padding: 10px 20px;
+        background-color: #e6007e;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        /* cursor: pointer; */
+      }
 
-        .modal button:disabled {
-            background-color: #444;
-            cursor: not-allowed;
-        }
+      .modal button:disabled {
+        background-color: #444;
+        cursor: not-allowed;
+      }
 
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 15px;
-        }
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 15px;
+      }
 
-        .navbar {
-            padding: 14px 50px;
-            font-size: 1.25rem;
-        }
+      .navbar {
+        padding: 14px 50px;
+        font-size: 1.25rem;
+      }
     </style>
-</head>
+  </head>
 
-<body class="text-gray-300">
+  <body class="text-gray-300">
     <div class="grid-background"></div>
 
     <nav class="py-8 flex justify-center gap-10">
-        <button onclick="location.href='../index.html'" class="text-gray-300 hover:text-gray-100 text-lg font-semibold">
-            Home
-        </button>
-        <button onclick="location.href='https://cuzimstupi4.github.io/fivem-installer-website/about/index.html'"
-            class="text-gray-300 hover:text-gray-100 text-lg font-semibold">
-            About Us
-        </button>
-        <button onclick="location.href='https://github.com/CuzImStupi4/fivem-installer-website'"
-            class="text-gray-300 hover:text-gray-100 text-lg font-semibold">
-            Source
-        </button>
-        <button onclick="location.href='https://discord.gg/TKtmGz2PnV'"
-            class="text-gray-300 hover:text-gray-100 text-lg font-semibold">
-            Discord
-        </button>
+      <button
+        onclick="location.href='../index.html'"
+        class="text-gray-300 hover:text-gray-100 text-lg font-semibold"
+      >
+        Home
+      </button>
+      <button
+        onclick="location.href='https://cuzimstupi4.github.io/fivem-installer-website/about/index.html'"
+        class="text-gray-300 hover:text-gray-100 text-lg font-semibold"
+      >
+        About Us
+      </button>
+      <button
+        onclick="location.href='https://github.com/CuzImStupi4/fivem-installer-website'"
+        class="text-gray-300 hover:text-gray-100 text-lg font-semibold"
+      >
+        Source
+      </button>
+      <button
+        onclick="location.href='https://discord.gg/TKtmGz2PnV'"
+        class="text-gray-300 hover:text-gray-100 text-lg font-semibold"
+      >
+        Discord
+      </button>
     </nav>
 
     <div class="container mx-auto p-8">
-        <div class="p-6 rounded-xl bg-[#0E0E0E]">
-            <h1 class="subpixel-antialiased text-4xl font-bold mb-1 text-center text-gray-100">Server Setup</h1>
-            <div class="flex flex-col gap-6">
-                <div>
-                    <label for="serverIP" class="block text-lg font-semibold text-gray-300">Server IP</label>
-                    <input type="text" id="serverIP"
-                        class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                        placeholder="Enter your server IP" oninput="validateFields()">
-                </div>
-                <div>
-                    <label for="port" class="block text-lg font-semibold text-gray-300">Port</label>
-                    <input type="text" id="port"
-                        class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                        placeholder="Enter your port" oninput="validateFields()">
-                </div>
-                <div>
-                    <label for="user" class="block text-lg font-semibold text-gray-300">User</label>
-                    <input type="text" id="user"
-                        class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                        placeholder="Enter your user" oninput="validateFields()">
-                </div>
-                <div>
-                    <label for="mysqlOption" class="block text-lg font-semibold text-gray-300">Use MySQL</label>
-                    <select id="mysqlOption"
-                        class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                        oninput="validateFields()">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="password" class="block text-lg font-semibold text-gray-300">Password</label>
-                    <div class="relative">
-                        <input type="password" id="password"
-                            class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                            placeholder="Enter your password" style="filter: blur(4px);" oninput="validateFields()">
-                        <span id="passwordIcon" class="eye-icon" onclick="togglePassword()">👁️</span>
-                    </div>
-                </div>
+      <div class="p-6 rounded-xl bg-[#0E0E0E]">
+        <h1
+          class="subpixel-antialiased text-4xl font-bold mb-1 text-center text-gray-100"
+        >
+          Server Setup
+        </h1>
+        <div class="flex flex-col gap-6">
+          <div>
+            <label
+              for="serverIP"
+              class="block text-lg font-semibold text-gray-300"
+              >Server IP</label
+            >
+            <input
+              type="text"
+              id="serverIP"
+              class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              placeholder="Enter your server IP"
+              oninput="validateFields()"
+            />
+          </div>
+          <div>
+            <label for="port" class="block text-lg font-semibold text-gray-300"
+              >Port</label
+            >
+            <input
+              type="text"
+              id="port"
+              class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              placeholder="Enter your port"
+              oninput="validateFields()"
+            />
+          </div>
+          <div>
+            <label for="user" class="block text-lg font-semibold text-gray-300"
+              >User</label
+            >
+            <input
+              type="text"
+              id="user"
+              class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              placeholder="Enter your user"
+              oninput="validateFields()"
+            />
+          </div>
+          <div>
+            <label
+              for="mysqlOption"
+              class="block text-lg font-semibold text-gray-300"
+              >Use MySQL</label
+            >
+            <select
+              id="mysqlOption"
+              class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              oninput="validateFields()"
+            >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block text-lg font-semibold text-gray-300"
+              >Password</label
+            >
+            <div class="relative">
+              <input
+                type="password"
+                id="password"
+                class="w-full mt-2 p-3 bg-[#161616] text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                placeholder="Enter your password"
+                style="filter: blur(4px)"
+                oninput="validateFields()"
+              />
+              <span
+                id="passwordIcon"
+                class="eye-icon"
+                onclick="togglePassword()"
+                >👁️</span
+              >
             </div>
-
-            <div class="mt-6 text-center">
-                <button id="confirmButton"
-                    class="px-6 py-2 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 focus:outline-none"
-                    onclick="openModal()" disabled>Confirm</button>
-            </div>
+          </div>
         </div>
+
+        <div class="mt-6 text-center">
+          <button
+            id="confirmButton"
+            class="px-6 py-2 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 focus:outline-none"
+            onclick="openModal()"
+            disabled
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
     </div>
 
     <div id="confirmationModal" class="modal">
-        <div class="modal-content">
-            <button2 class="close-button" onclick="closeModal()">✖</button2>
-            <h2 class="text-gray-300 font-bold text-2xl mb-4">Please Confirm</h2>
-            <p class="text-gray-300 mb-4">By confirming, you agree to the server setup details.</p>
-            <input type="checkbox" id="confirmCheckbox" class="text-pink-500" onclick="toggleModalButton()"> I agree to
-            the terms
-            <div class="mt-4">
-                <button id="modalButton"
-                    class="w-full p-2 text-white font-semibold rounded-lg bg-pink-600 hover:bg-pink-700" disabled
-                    onclick="finishSetup()">Confirm Setup</button>
-            </div>
+      <div class="modal-content">
+        <button2 class="close-button" onclick="closeModal()">✖</button2>
+        <h2 class="text-gray-300 font-bold text-2xl mb-4">Please Confirm</h2>
+        <p class="text-gray-300 mb-4">
+          By confirming, you agree to the server setup details.
+        </p>
+        <input
+          type="checkbox"
+          id="confirmCheckbox"
+          class="text-pink-500"
+          onclick="toggleModalButton()"
+        />
+        I agree to the terms
+        <div class="mt-4">
+          <button
+            id="modalButton"
+            class="w-full p-2 text-white font-semibold rounded-lg bg-pink-600 hover:bg-pink-700"
+            disabled
+            onclick="finishSetup()"
+          >
+            Confirm Setup
+          </button>
         </div>
+      </div>
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            const passwordIcon = document.getElementById('passwordIcon');
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                passwordField.style.filter = 'none';
-                passwordIcon.classList.add('clicked');
-            } else {
-                passwordField.type = 'password';
-                passwordField.style.filter = 'blur(4px)';
-                passwordIcon.classList.remove('clicked');
+      function togglePassword() {
+        const passwordField = document.getElementById("password");
+        const passwordIcon = document.getElementById("passwordIcon");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          passwordField.style.filter = "none";
+          passwordIcon.classList.add("clicked");
+        } else {
+          passwordField.type = "password";
+          passwordField.style.filter = "blur(4px)";
+          passwordIcon.classList.remove("clicked");
+        }
+      }
+
+      function validateFields() {
+        const serverIP = document.getElementById("serverIP").value;
+        const port = document.getElementById("port").value;
+        const user = document.getElementById("user").value;
+        const password = document.getElementById("password").value;
+        const confirmButton = document.getElementById("confirmButton");
+
+        if (serverIP && port && user && password) {
+          confirmButton.disabled = false;
+        } else {
+          confirmButton.disabled = true;
+        }
+      }
+
+      function openModal() {
+        const modal = document.getElementById("confirmationModal");
+        modal.style.display = "flex";
+        setTimeout(() => {
+          modal.classList.add("opacity-100");
+          modal.classList.remove("opacity-0");
+        }, 10);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("confirmationModal");
+        modal.classList.add("opacity-0");
+        modal.classList.remove("opacity-100");
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 300);
+      }
+
+      function toggleModalButton() {
+        const modalButton = document.getElementById("modalButton");
+        const confirmCheckbox = document.getElementById("confirmCheckbox");
+
+        modalButton.disabled = !confirmCheckbox.checked;
+      }
+
+      function finishSetup() {
+        const serverIP = document.getElementById("serverIP").value;
+        const port = document.getElementById("port").value;
+        const user = document.getElementById("user").value;
+        const mysqlOption = document.getElementById("mysqlOption").value;
+        const password = document.getElementById("password").value;
+
+        const modalContent = `<img src="" alt="Image of console!"></img>Server will now install!<br>Server IP: ${serverIP}<br>Port: ${port}<br>User: ${user}<br>Use MySQL: ${mysqlOption}<br>Password: ${"*".repeat(
+          password.length
+        )}`;
+        document.querySelector(".modal-content").innerHTML = modalContent;
+      }
+
+      document.addEventListener("click", (e) => {
+        const modal = document.getElementById("confirmationModal");
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+
+              document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
             }
-        }
+        }, { passive: false });
 
-        function validateFields() {
-            const serverIP = document.getElementById('serverIP').value;
-            const port = document.getElementById('port').value;
-            const user = document.getElementById('user').value;
-            const password = document.getElementById('password').value;
-            const confirmButton = document.getElementById('confirmButton');
-
-            if (serverIP && port && user && password) {
-                confirmButton.disabled = false;
-            } else {
-                confirmButton.disabled = true;
-            }
-        }
-
-        function openModal() {
-            const modal = document.getElementById('confirmationModal');
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                modal.classList.remove('opacity-0');
-            }, 10);
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('confirmationModal');
-            modal.classList.add('opacity-0');
-            modal.classList.remove('opacity-100');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-
-        function toggleModalButton() {
-            const modalButton = document.getElementById('modalButton');
-            const confirmCheckbox = document.getElementById('confirmCheckbox');
-
-            modalButton.disabled = !confirmCheckbox.checked;
-        }
-
-        function finishSetup() {
-            const serverIP = document.getElementById('serverIP').value;
-            const port = document.getElementById('port').value;
-            const user = document.getElementById('user').value;
-            const mysqlOption = document.getElementById('mysqlOption').value;
-            const password = document.getElementById('password').value;
-
-            const modalContent = `<img src="" alt="Image of console!"></img>Server will now install!<br>Server IP: ${serverIP}<br>Port: ${port}<br>User: ${user}<br>Use MySQL: ${mysqlOption}<br>Password: ${'*'.repeat(password.length)}`;
-            document.querySelector('.modal-content').innerHTML = modalContent;
-        }
-
-        document.addEventListener('click', (e) => {
-            const modal = document.getElementById('confirmationModal');
-            if (e.target === modal) {
-                closeModal();
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
+                e.preventDefault();
             }
         });
     </script>
-</body>
-
+  </body>
 </html>

@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>Server Setup</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <link rel="icon" type="image/x-icon" href="favico.ico" />
     <link rel="stylesheet" href="cursor.css" />
     <script src="cursor.js"></script>
@@ -354,18 +357,21 @@
         }
       });
 
+      document.addEventListener(
+        "wheel",
+        function (e) {
+          if (e.ctrlKey) {
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
 
-              document.addEventListener('wheel', function(e) {
-            if (e.ctrlKey) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
-                e.preventDefault();
-            }
-        });
+      document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey && (e.key === "+" || e.key === "-" || e.key === "=")) {
+          e.preventDefault();
+        }
+      });
     </script>
   </body>
 </html>

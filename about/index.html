@@ -110,4 +110,26 @@
     </div>
 </body>
 
+<body class="text-gray-300">
+    <div id="preloader" style="background-image: linear-gradient(-45deg, #0e0e0e, #0b0b0b);">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            const preloader = document.getElementById("preloader");
+            preloader.classList.add("fade-out");
+            setTimeout(() => {
+                preloader.style.display = "none";
+                document.body.style.overflow = "auto";
+            }, 1000);
+        }, 3000);
+    </script>
+</body>
+
 </html>
